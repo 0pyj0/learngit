@@ -6,7 +6,7 @@ int main()
 	a[0]=0;b[0]=1;c[0]=0;
 	FILE *fpRead=fopen("input.txt","r");
 	FILE *fpWrite=fopen("output.txt","w"); 
-	for(i=1;i<=5;i++)//������������ж�ÿ���˿͵ķ��� 
+	for(i=1;i<=5;i++)//输入五个请求，判断每个乘客的方向， 
 	{
 		fscanf(fpRead,"%d %d %d",&a[i],&b[i],&c[i]);
 		if(c[i]-b[i]>0)
@@ -16,7 +16,7 @@ int main()
 		sumc=sumc+d[i];
     }
     getchar();
-    	for(j=1;j<=5;j++)//����¥���˳����С�������С�
+    	for(j=1;j<=5;j++)//按照楼层的顺序由小到大排列。
 	    {
 		    for(i=1;i<=5-j-1;i++) 
 		    {
@@ -28,7 +28,7 @@ int main()
 			    }
 		    }
 	    }
-    if(sumc!=1&&sumc!=0)
+    if(sumc!=1&&sumc!=0)//当上下楼的乘客都有的时候，先将上楼的乘客都接上，然后送达，接着接下楼的乘客。
     {
 	for(i=1;i<=5;i++)
 	{
@@ -37,12 +37,12 @@ int main()
 			if(a[i]<(sum+abs(b[i]-b[i-1])))
 			{
 				sum=sum+abs(b[i]-b[i-1])+1;
-				fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+				fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			else
 			{
 				sum=a[i]+1;
-				fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+				fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			m=b[i];
 		}
@@ -52,7 +52,7 @@ int main()
 		if(d[i]==0)
 		{
 			sum=sum+abs(m-c[i])+1;
-			fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,c[i]);
+			fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,c[i]);
 			m=c[i];
 			sumz=sumz+sum-1-a[i];
 		}
@@ -64,12 +64,12 @@ int main()
 			if(a[i]<(sum+abs(b[i]-m)))
 			{
 				sum=sum+abs(b[i]-m)+1;
-				fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+				fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			else
 			{
 				sum=a[i]+1;
-				fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+				fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			m=b[i];
 		}
@@ -79,33 +79,33 @@ int main()
 		if(d[i]==1)
 		{
 			sum=sum+abs(m-c[i])+1;
-			fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,c[i]);
+			fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,c[i]);
 			m=c[i];
 			sumz=sumz+sum-1-a[i];
 		}
 	}
 	fprintf(fpWrite,"%d",sumz);
     }
-    else
+    else//只有上楼或下楼的时候，先将所有乘客都接上，然后一起送达。
     {
     	for(i=1;i<=5;i++)
     	{
     		if(a[i]<(sum+abs(b[i]-b[i-1])))
     		{
     			sum=sum+abs(b[i]-b[i-1])+1;
-    			fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+    			fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			else
 			{
 				sum=a[i]+1;
-				fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,b[i]);
+				fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,b[i]);
 			}
 			m=b[i];
 		}
 		for(i=5;i>=1;i--)
 		{
 			sum=sum+abs(m-c[i])+1;
-			fprintf(fpWrite,"%dʱ��ͣ����%d¥\n",sum-1,c[i]);
+			fprintf(fpWrite,"%d时，停靠在%d楼\n",sum-1,c[i]);
 			sumz=sumz+abs(sum-1-a[i]);
 		}
 		fprintf(fpWrite,"%d",sumz);
